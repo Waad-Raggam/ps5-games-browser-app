@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ps5_games_browser_app/blocs/game_details/game_details_bloc.dart';
+import 'package:ps5_games_browser_app/blocs/game_details/game_details_events.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_bloc.dart';
-import 'package:ps5_games_browser_app/blocs/games/games_list_events.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_states.dart';
+import 'package:ps5_games_browser_app/screens/game_details_screen.dart';
 
 class GameListScreen extends StatefulWidget {
   @override
@@ -12,18 +14,12 @@ class GameListScreen extends StatefulWidget {
 class _GameListScreenState extends State<GameListScreen> {
   @override
   Widget build(BuildContextcontext) {
-    final gamesListBloc = BlocProvider.of<GamesListBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('PlayStation 5 Games'),
       ),
       body: BlocBuilder<GamesListBloc, GamesState>(
         builder: (context, state) {
-          if (state is GamesListInitial) {
-            // Trigger the event only once when the widget is initially built
-            gamesListBloc.add(LoadGameListEvent());
-          }
           if (state is GamesListLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is GamesListLoaded) {
@@ -36,8 +32,16 @@ class _GameListScreenState extends State<GameListScreen> {
                     subtitle: Text(game.releaseDate),
                     leading: Image.network(game.backgroundImage),
                     trailing: Text('Metacritic Score: ${game.metacriticScore}'),
-                    // Add onTap functionality to navigate to Game Details View
-                    onTap: () {});
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GameDetailsScreen(
+                            name: game.name,
+                          ),
+                        ),
+                      );
+                    });
               },
             );
           } else if (state is GamesListErrorState) {

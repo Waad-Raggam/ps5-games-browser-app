@@ -1,6 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ps5_games_browser_app/blocs/game_details/game_details_states.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_events.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_states.dart';
+import 'package:ps5_games_browser_app/blocs/game_details/game_details_bloc.dart';
+import 'package:ps5_games_browser_app/blocs/game_details/game_details_events.dart';
+import 'package:ps5_games_browser_app/models/game_details_model.dart';
 import 'package:ps5_games_browser_app/models/game_list_model.dart';
 
 class GamesListBloc extends Bloc<GamesListEvent, GamesState> {

@@ -4,7 +4,6 @@ import 'package:ps5_games_browser_app/blocs/game_details/game_details_bloc.dart'
 import 'package:ps5_games_browser_app/blocs/game_details/game_details_events.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_bloc.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_events.dart';
-import 'package:ps5_games_browser_app/screens/game_details_screen.dart';
 import 'package:ps5_games_browser_app/screens/games_list_screen.dart';
 
 void main() {
@@ -12,7 +11,7 @@ void main() {
     MultiBlocProvider(
       providers: [
         BlocProvider<GameDetailsBloc>(
-          create: (_) => GameDetailsBloc()..add(LoadGameDetailsEvent()),
+          create: (_) => GameDetailsBloc()..add(LoadGameDetailsEvent(0)),
         ),
         BlocProvider<GamesListBloc>(
           create: (_) => GamesListBloc()..add(LoadGameListEvent()),

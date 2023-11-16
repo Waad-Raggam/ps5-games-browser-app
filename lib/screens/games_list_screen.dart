@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ps5_games_browser_app/blocs/game_details/game_details_bloc.dart';
-import 'package:ps5_games_browser_app/blocs/game_details/game_details_events.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_bloc.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_states.dart';
 import 'package:ps5_games_browser_app/screens/game_details_screen.dart';
@@ -16,7 +14,7 @@ class _GameListScreenState extends State<GameListScreen> {
   Widget build(BuildContextcontext) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PlayStation 5 Games'),
+        title: const Text('PlayStation 5 Games'),
       ),
       body: BlocBuilder<GamesListBloc, GamesState>(
         builder: (context, state) {
@@ -29,7 +27,7 @@ class _GameListScreenState extends State<GameListScreen> {
                 final game = state.games[index];
                 return ListTile(
                     title: Text(game.name),
-                    subtitle: Text(game.releaseDate),
+                    // subtitle: Text(game.releaseDate),
                     leading: Image.network(game.backgroundImage),
                     trailing: Text('Metacritic Score: ${game.metacriticScore}'),
                     onTap: () {
@@ -37,6 +35,7 @@ class _GameListScreenState extends State<GameListScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => GameDetailsScreen(
+                            selectedGameId: game.id,
                             name: game.name,
                           ),
                         ),

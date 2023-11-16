@@ -99,20 +99,6 @@ class Developer {
   }
 }
 
-class Screenshot {
-  final String imageUrl;
-
-  Screenshot({
-    required this.imageUrl,
-  });
-
-  factory Screenshot.fromJson(Map<String, dynamic> json) {
-    return Screenshot(
-      imageUrl: json['image'],
-    );
-  }
-}
-
 class GameDetails {
   final String description;
   final List<Platform> platforms;
@@ -150,14 +136,6 @@ class GameDetails {
         .map((developerJson) => Developer.fromJson(developerJson))
         .toList();
 
-    List<Screenshot>? screenshots;
-    if (json.containsKey('screenshots')) {
-      final List<dynamic> screenshotsJson = json['screenshots'];
-      screenshots = screenshotsJson
-          .map((screenshotJson) => Screenshot.fromJson(screenshotJson))
-          .toList();
-    }
-
     return GameDetails(
       description: json['description'],
       platforms: platforms,
@@ -167,4 +145,13 @@ class GameDetails {
       screenshots: json['background_image_additional'],
     );
   }
+
+  Map<int, String> getPlatformMap() =>
+      {for (var platform in platforms) platform.id: platform.name};
+
+  Map<int, String> getPublisherMap() =>
+      {for (var publisher in publishers) publisher.id: publisher.name};
+
+  Map<int, String> getDeveloperMap() =>
+      {for (var developer in developers) developer.id: developer.name};
 }

@@ -16,7 +16,7 @@ class GameDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedGameId.toString()),
+        title: Text(name),
       ),
       body: BlocProvider(
         create: (_) => GameDetailsBloc(),
@@ -34,21 +34,14 @@ class GameDetailsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final gameDetails = state.gameInfo[index];
 
-                  // Build a list of platform names
-                  final List<String> platformNames =
-                      gameDetails.platforms.map((platform) {
-                    return platform.name;
-                  }).toList();
+                  final Map<int, String> platformMap =
+                      gameDetails.getPlatformMap();
 
-                  final List<String> publisherNames =
-                      gameDetails.publishers.map((publisher) {
-                    return publisher.name;
-                  }).toList();
+                  final Map<int, String> publisherMap =
+                      gameDetails.getPublisherMap();
 
-                  final List<String> developerNames =
-                      gameDetails.developers.map((developer) {
-                    return developer.name;
-                  }).toList();
+                  final Map<int, String> developerMap =
+                      gameDetails.getDeveloperMap();
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,8 +73,9 @@ class GameDetailsScreen extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                      for (String platformName in platformNames)
-                        Text(platformName),
+                      for (int platformId in gameDetails.platforms
+                          .map((platform) => platform.id))
+                        Text(platformMap[platformId] ?? 'Unknown Platform'),
                       const Text(
                         'Publisher:',
                         style: TextStyle(
@@ -89,8 +83,9 @@ class GameDetailsScreen extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                      for (String publisherName in publisherNames)
-                        Text(publisherName),
+                      for (int publisherId in gameDetails.publishers
+                          .map((publisher) => publisher.id))
+                        Text(publisherMap[publisherId] ?? 'Unknown Publisher'),
                       const Text(
                         'Developers:',
                         style: TextStyle(
@@ -98,8 +93,9 @@ class GameDetailsScreen extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                      for (String developerName in developerNames)
-                        Text(developerName),
+                      for (int developerId in gameDetails.developers
+                          .map((developer) => developer.id))
+                        Text(developerMap[developerId] ?? 'Unknown Developer'),
                     ],
                   );
                 },

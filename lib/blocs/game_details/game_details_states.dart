@@ -7,7 +7,7 @@ class GameDetailsInitial extends GameDetailsState {}
 class GameDetailsLoading extends GameDetailsState {}
 
 class GameDetailsLoaded extends GameDetailsState {
-  final GameDetails gameInfo;
+  final List<GameDetails> gameInfo;
 
   GameDetailsLoaded(this.gameInfo);
 }

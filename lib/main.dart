@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter MultiblocProvider',
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xFF343540),
+      ),
       home: GameListScreen(),
     );
   }

@@ -14,9 +14,16 @@ class GameDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Color?> genreColors = [
+      Colors.blue[400],
+      Colors.green[400],
+      Colors.red[400],
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
+        backgroundColor: const Color(0xFF332F43),
       ),
       body: BlocProvider(
         create: (_) => GameDetailsBloc(),
@@ -57,45 +64,73 @@ class GameDetailsScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      Text(gameDetails.description),
-                      const Text('Genres:'),
                       Wrap(
+                        spacing: 8.0,
                         children: gameDetails.genres
                             .map((genre) => Chip(
-                                  label: Text(genre.name),
+                                  label: Text(
+                                    genre.name,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  backgroundColor: genreColors[
+                                      genre.id % genreColors.length],
                                 ))
                             .toList(),
+                      ),
+                      Text(
+                        gameDetails.description,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       const Text(
                         'Available Platforms:',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.white),
                       ),
                       for (int platformId in gameDetails.platforms
                           .map((platform) => platform.id))
-                        Text(platformMap[platformId] ?? 'Unknown Platform'),
-                      const Text(
-                        'Publisher:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                        Text(
+                          platformMap[platformId] ?? 'Unknown Platform',
+                          style: const TextStyle(color: Colors.white),
                         ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'Publishers:',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.white),
                       ),
                       for (int publisherId in gameDetails.publishers
                           .map((publisher) => publisher.id))
-                        Text(publisherMap[publisherId] ?? 'Unknown Publisher'),
+                        Text(
+                          publisherMap[publisherId] ?? 'Unknown Publisher',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Text(
                         'Developers:',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.white),
                       ),
                       for (int developerId in gameDetails.developers
                           .map((developer) => developer.id))
-                        Text(developerMap[developerId] ?? 'Unknown Developer'),
+                        Text(
+                          developerMap[developerId] ?? 'Unknown Developer',
+                          style: const TextStyle(color: Colors.white),
+                        ),
                     ],
                   );
                 },

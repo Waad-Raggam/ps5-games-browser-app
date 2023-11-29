@@ -145,6 +145,97 @@ class GameDetails {
       screenshots: json['background_image_additional'],
     );
   }
+  bool isTherePS() {
+    bool hasPs = false;
+    var result = platforms.any(
+        (element) => element.id == 18 || element.id == 187 || element.id == 16);
+
+    if (!hasPs && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isThereXbox() {
+    bool hasXbox = false;
+    var result = platforms.any(
+        (element) => element.id == 14 || element.id == 186 || element.id == 1);
+
+    if (!hasXbox && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isTherePC() {
+    bool hasPC = false;
+    var result = platforms.any((element) => element.id == 4);
+
+    if (!hasPC && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isThereMacOS() {
+    bool hasMac = false;
+    var result = platforms.any((element) => element.id == 5);
+
+    if (!hasMac && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isThereLinux() {
+    bool hasLinux = false;
+    var result = platforms.any((element) => element.id == 6);
+
+    if (!hasLinux && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isThereAndroid() {
+    bool hasAndroid = false;
+    var result = platforms.any((element) => element.id == 21);
+
+    if (!hasAndroid && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isThereIOS() {
+    bool hasIOS = false;
+    var result = platforms.any((element) => element.id == 3);
+
+    if (!hasIOS && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isThereSwitch() {
+    bool hasSwitch = false;
+    var result = platforms.any((element) => element.id == 7);
+
+    if (!hasSwitch && result) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isThereWeb() {
+    bool hasWeb = false;
+    var result = platforms.any((element) => element.id == 171);
+
+    if (!hasWeb && result) {
+      return true;
+    }
+    return false;
+  }
 
   Map<int, String> getPlatformMap() =>
       {for (var platform in platforms) platform.id: platform.name};

@@ -50,6 +50,16 @@ class GameDetailsScreen extends StatelessWidget {
                   final Map<int, String> developerMap =
                       gameDetails.getDeveloperMap();
 
+                  final bool doesPS = gameDetails.isTherePS();
+                  final bool doesXBOX = gameDetails.isThereXbox();
+                  final bool doesPC = gameDetails.isTherePC();
+                  final bool doesMac = gameDetails.isThereMacOS();
+                  final bool doesLinux = gameDetails.isThereLinux();
+                  final bool doesAndroid = gameDetails.isThereAndroid();
+                  final bool doesSwitch = gameDetails.isThereSwitch();
+                  final bool doesIOS = gameDetails.isThereIOS();
+                  final bool doesWeb = gameDetails.isThereWeb();
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -93,12 +103,74 @@ class GameDetailsScreen extends StatelessWidget {
                             fontSize: 16,
                             color: Colors.white),
                       ),
-                      for (int platformId in gameDetails.platforms
-                          .map((platform) => platform.id))
-                        Text(
-                          platformMap[platformId] ?? 'Unknown Platform',
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          !doesPS
+                              ? const SizedBox()
+                              : Image.asset(
+                                  'assets/images/playstation.png',
+                                  color: Colors.white,
+                                  height: 40,
+                                ),
+                          !doesXBOX
+                              ? const SizedBox()
+                              : Image.asset(
+                                  'assets/images/xbox.png',
+                                  color: Colors.white,
+                                  height: 30,
+                                ),
+                          !doesPC
+                              ? const SizedBox()
+                              : const Icon(
+                                  Icons.desktop_windows_rounded,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                          !doesMac
+                              ? const SizedBox()
+                              : Image.asset(
+                                  'assets/images/macos.png',
+                                  color: Colors.white,
+                                  height: 40,
+                                ),
+                          !doesLinux
+                              ? const SizedBox()
+                              : Image.asset(
+                                  'assets/images/linux.png',
+                                  color: Colors.white,
+                                  height: 30,
+                                ),
+                          !doesAndroid
+                              ? const SizedBox()
+                              : const Icon(
+                                  Icons.android,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                          !doesIOS
+                              ? const SizedBox()
+                              : Image.asset(
+                                  'assets/images/ios.png',
+                                  color: Colors.white,
+                                  height: 30,
+                                ),
+                          !doesSwitch
+                              ? const SizedBox()
+                              : Image.asset(
+                                  'assets/images/nintendo-switch.png',
+                                  color: Colors.white,
+                                  height: 30,
+                                ),
+                          !doesWeb
+                              ? const SizedBox()
+                              : Image.asset(
+                                  'assets/images/web.png',
+                                  color: Colors.white,
+                                  height: 30,
+                                ),
+                        ].where((widget) => widget != null).toList(),
+                      ),
                       const SizedBox(
                         height: 10,
                       ),

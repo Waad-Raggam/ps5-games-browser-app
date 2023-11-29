@@ -23,5 +23,14 @@ class GamesListBloc extends Bloc<GamesListEvent, GamesState> {
         emit(GamesListErrorState('Failed to fetch games list: $e'));
       }
     });
+
+    on<SortGamesEvent>((event, emit) {
+      if (state is GamesListLoaded) {
+        final sortedGames =
+            List<GameModel>.from((state as GamesListLoaded).games)
+              ..sort((a, b) => a.name.compareTo(b.name));
+        emit(GamesListLoaded(sortedGames));
+      }
+    });
   }
 }

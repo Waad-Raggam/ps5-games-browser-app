@@ -8,8 +8,9 @@ class GamesListLoading extends GamesState {}
 
 class GamesListLoaded extends GamesState {
   final List<GameModel> games;
+  final List<GameModel> originalOrder;
 
-  GamesListLoaded(this.games);
+  GamesListLoaded(this.games, {required this.originalOrder});
 }
 
 class GamesListErrorState extends GamesState {

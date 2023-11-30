@@ -22,10 +22,14 @@ class _GameListScreenState extends State<GameListScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: InkWell(
-                child: Icon(Icons.sort_by_alpha),
+                child: const Icon(Icons.sort_by_alpha),
                 onTap: () {
                   if (state is GamesListLoaded) {
-                    context.read<GamesListBloc>().add(SortGamesEvent());
+                    final isSorted =
+                        (state).games[0].name != (state).originalOrder[0].name;
+                    context
+                        .read<GamesListBloc>()
+                        .add(isSorted ? UnsortGamesEvent() : SortGamesEvent());
                   }
                 },
               ),

@@ -17,7 +17,7 @@ class GamesListBloc extends Bloc<GamesListEvent, GamesState> {
           final List<dynamic> results = responseData['results'];
           final List<GameModel> games =
               results.map((gameJson) => GameModel.fromJson(gameJson)).toList();
-          emit(GamesListLoaded(games));
+          emit(GamesListLoaded(games, originalOrder: List.from(games)));
         }
       } catch (e) {
         emit(GamesListErrorState('Failed to fetch games list: $e'));
@@ -29,7 +29,16 @@ class GamesListBloc extends Bloc<GamesListEvent, GamesState> {
         final sortedGames =
             List<GameModel>.from((state as GamesListLoaded).games)
               ..sort((a, b) => a.name.compareTo(b.name));
-        emit(GamesListLoaded(sortedGames));
+        emit(GamesListLoaded(sortedGames,
+            originalOrder: (state as GamesListLoaded).originalOrder));
+      }
+    });
+
+    on<UnsortGamesEvent>((event, emit) {
+      if (state is GamesListLoaded) {
+        final originalOrder = (state as GamesListLoaded).originalOrder;
+        emit(GamesListLoaded(List.from(originalOrder),
+            originalOrder: originalOrder));
       }
     });
   }

@@ -74,6 +74,10 @@ unlinked_spec.ds
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
 *.jks
+**/app/build/
+**/captures/
+**/output/
+**/build/
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -104,6 +108,18 @@ unlinked_spec.ds
 **/ios/Flutter/flutter_export_environment.sh
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Runner/Debug.xcconfig
+**/ios/Runner/Release.xcconfig
+
+# CocoaPods
+**/ios/Pods/
+**/ios/Podfile.lock
+**/ios/Flutter/Flutter.podspec
+**/macos/Pods/
+**/macos/Podfile.lock
+**/macos/Flutter/Flutter.podspec
+**/macos/Runner/Debug.xcconfig
+**/macos/Runner/Release.xcconfig
 
 # macOS
 **/Flutter/ephemeral/
@@ -136,3 +152,10 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
+
+# Gradle
+.gradle/
+/build/
+
+# Local configuration file (sdk path, etc)
+local.properties

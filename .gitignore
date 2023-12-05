@@ -110,14 +110,20 @@ unlinked_spec.ds
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Runner/Debug.xcconfig
 **/ios/Runner/Release.xcconfig
+**/ios/Runner.xcodeproj/
+**/ios/Runner.xcworkspace/
 
 # CocoaPods
 **/ios/Pods/
+**/ios/Podfile
 **/ios/Podfile.lock
 **/ios/Flutter/Flutter.podspec
 **/macos/Pods/
 **/macos/Podfile.lock
+**/macos/Podfile
 **/macos/Flutter/Flutter.podspec
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
 **/macos/Runner/Debug.xcconfig
 **/macos/Runner/Release.xcconfig
 

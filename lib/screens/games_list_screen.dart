@@ -4,6 +4,9 @@ import 'package:ps5_games_browser_app/blocs/games/games_list_bloc.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_events.dart';
 import 'package:ps5_games_browser_app/blocs/games/games_list_states.dart';
 import 'package:ps5_games_browser_app/screens/game_details_screen.dart';
+import 'package:ps5_games_browser_app/screens/game_list_recently_viewed.dart';
+import 'package:ps5_games_browser_app/utils/chip_background_color.dart';
+import 'package:ps5_games_browser_app/utils/local_storage.dart';
 
 class GameListScreen extends StatefulWidget {
   @override
@@ -31,6 +34,20 @@ class _GameListScreenState extends State<GameListScreen> {
                         .read<GamesListBloc>()
                         .add(isSorted ? UnsortGamesEvent() : SortGamesEvent());
                   }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: InkWell(
+                child: const Icon(Icons.history),
+                onTap: () async {
+                  var things = await LocalStorageUtil.getRecentlyViewed();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GameListHistoryScreen(things)),
+                  );
                 },
               ),
             )
@@ -93,7 +110,10 @@ class _GameListScreenState extends State<GameListScreen> {
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    await LocalStorageUtil.addToRecentlyViewed(
+                                        game.id);
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -138,17 +158,5 @@ class _GameListScreenState extends State<GameListScreen> {
         ),
       );
     });
-  }
-
-  Color backgroundColor(int metacrtitcScore) {
-    switch (metacrtitcScore) {
-      case >= 75 && < 100:
-        return const Color.fromRGBO(93, 203, 130, 1.0);
-      case >= 50 && < 75:
-        return const Color.fromRGBO(245, 192, 89, 1.0);
-      case >= 0 && < 50:
-        return const Color.fromRGBO(237, 114, 119, 1.0);
-    }
-    return Colors.grey;
   }
 }

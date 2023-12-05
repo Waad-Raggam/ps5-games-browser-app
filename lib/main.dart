@@ -7,6 +7,7 @@ import 'package:ps5_games_browser_app/blocs/games/games_list_events.dart';
 import 'package:ps5_games_browser_app/screens/games_list_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiBlocProvider(
       providers: [

@@ -12,10 +12,29 @@ class GameDetailsBloc extends Bloc<GameDetailsEvent, GameDetailsState> {
       try {
         final response = await http.get(Uri.parse(
             'https://api.rawg.io/api/games/${event.gameId}?key=6eaf82e6cd264cbd9ea5950dd863e5dc'));
-        if (response.statusCode == 200) {
+        final responseScreenshots = await http.get(Uri.parse(
+            'https://api.rawg.io/api/games/${event.gameId}/screenshots?key=6eaf82e6cd264cbd9ea5950dd863e5dc'));
+
+        if (response.statusCode == 200 &&
+            responseScreenshots.statusCode == 200) {
           final Map<String, dynamic> responseData = jsonDecode(response.body);
+          final Map<String, dynamic> responseScreenshotData =
+              jsonDecode(responseScreenshots.body);
+
           final GameDetails game = GameDetails.fromJson(responseData);
-          emit(GameDetailsLoaded([game]));
+
+          final int screenshoutCount = responseScreenshotData['count'];
+
+          final List<dynamic> screenshotResults =
+              responseScreenshotData['results'];
+
+          // Convert the list of screenshots to a List<Screenshot>
+          final List<Screenshot> gameScreenshots =
+              screenshotResults.map((result) {
+            return Screenshot.fromJson(result);
+          }).toList();
+
+          emit(GameDetailsLoaded([game], gameScreenshots, screenshoutCount));
         }
       } catch (e) {
         emit(GameDetailsErrorState('Failed to fetch games list: $e'));

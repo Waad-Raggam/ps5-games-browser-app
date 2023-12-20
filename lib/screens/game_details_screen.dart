@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ps5_games_browser_app/blocs/game_details/game_details_bloc.dart';
 import 'package:ps5_games_browser_app/blocs/game_details/game_details_events.dart';
 import 'package:ps5_games_browser_app/blocs/game_details/game_details_states.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ps5_games_browser_app/blocs/games/games_list_bloc.dart';
+import 'package:ps5_games_browser_app/models/game_details_model.dart';
 
 class GameDetailsScreen extends StatelessWidget {
   final String name;
@@ -40,6 +43,17 @@ class GameDetailsScreen extends StatelessWidget {
                 itemCount: 1,
                 itemBuilder: (context, index) {
                   final gameDetails = state.gameInfo[index];
+                  final gameScreenshots = state.gameScreenshot;
+                  Screenshot myScreenshot = Screenshot(
+                    id: 1,
+                    imageBackground: gameDetails.screenshots!,
+                    width: 800,
+                    height: 600,
+                    isDeleted: false,
+                  );
+
+                  gameScreenshots.add(myScreenshot);
+                  final countScreenshots = state.gameScreenshotCount;
 
                   final Map<int, String> platformMap =
                       gameDetails.getPlatformMap();
@@ -63,17 +77,22 @@ class GameDetailsScreen extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (gameDetails.screenshots != null &&
-                          gameDetails.screenshots!.isNotEmpty)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.network(
-                              gameDetails.screenshots!,
-                              fit: BoxFit.cover,
-                            ),
-                          ],
+                      CarouselSlider.builder(
+                        itemCount: countScreenshots,
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 2),
+                          enlargeCenterPage: true,
+                          viewportFraction: 1.0,
+                          initialPage: 0,
                         ),
+                        itemBuilder: (BuildContext context, int itemIndex,
+                                int pageViewIndex) =>
+                            Image.network(
+                          gameScreenshots[itemIndex].imageBackground,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                       Wrap(
                         spacing: 8.0,
                         children: gameDetails.genres

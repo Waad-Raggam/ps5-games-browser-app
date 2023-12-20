@@ -99,6 +99,32 @@ class Developer {
   }
 }
 
+class Screenshot {
+  final int id;
+  final String imageBackground;
+  final int width;
+  final int height;
+  final bool isDeleted;
+
+  Screenshot({
+    required this.id,
+    required this.imageBackground,
+    required this.width,
+    required this.height,
+    required this.isDeleted,
+  });
+
+  factory Screenshot.fromJson(Map<String, dynamic> json) {
+    return Screenshot(
+      id: json['id'],
+      imageBackground: json['image'],
+      width: json['width'],
+      height: json['height'],
+      isDeleted: json['is_deleted'],
+    );
+  }
+}
+
 class GameDetails {
   final String description;
   final List<Platform> platforms;

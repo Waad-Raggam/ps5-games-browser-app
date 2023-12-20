@@ -8,8 +8,11 @@ class GameDetailsLoading extends GameDetailsState {}
 
 class GameDetailsLoaded extends GameDetailsState {
   final List<GameDetails> gameInfo;
+  final List<Screenshot> gameScreenshot;
+  final int gameScreenshotCount;
 
-  GameDetailsLoaded(this.gameInfo);
+  GameDetailsLoaded(
+      this.gameInfo, this.gameScreenshot, this.gameScreenshotCount);
 }
 
 class GameDetailsErrorState extends GameDetailsState {
